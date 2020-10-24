@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
 import * as firebase from 'firebase';
 
 class Login extends Component {

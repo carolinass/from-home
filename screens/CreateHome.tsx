@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
-import { Container, Header, Content, Form, Item, Input, Button, Text } from 'native-base';
+import { Container, Content, Form, Item, Input, Button, Text } from 'native-base';
+import * as firebase from 'firebase'
 
-const CreateHome = () => {
-  const [name, setName] = useState('placeholder')
+// @ts-ignore
+const CreateHome = ({ navigation }) => {
+  const [name, setName] = useState('');
 
   const create = () => {
-    console.log('create!', name)
+    const db = firebase.firestore();
+    db.collection('homes').add({
+      name,
+      users: []
+    })
+      .then(() => {
+        navigation.navigate('TabOneNavigator', { screen: 'Home' });
+      })
+      .catch(function(error) {
+        console.error('Error writing document: ', error);
+      })
   }
 
   return (

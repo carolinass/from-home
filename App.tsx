@@ -10,6 +10,7 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
 import * as firebase from 'firebase';
+import 'firebase/firestore';
 import firebaseConfig from './firebaseConfig';
 
 firebase.initializeApp(firebaseConfig);
