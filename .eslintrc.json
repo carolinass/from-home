@@ -1,0 +1,114 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "import",
+    "react",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "@typescript-eslint/semi": [
+      "error",
+      "never"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "no-warning-comments": "warn",
+    // we are not using propTypes
+    "react/prop-types": "off",
+    // causes error with date-fns
+    "import/no-duplicates": [
+      "off"
+    ],
+    // allow `variable && functionCall()`
+    "@typescript-eslint/no-unused-expressions": [
+      "off"
+    ],
+    // sometimes its good to have unused vars in callbacks for context
+    // note you must synchronize with the eslint base rule as it can report incorrect errors
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn"
+    ],
+    // conflicts with typescript specific rule @typescript-eslint/no-shadow
+    "no-shadow": "off",
+    // too much work
+    "react/jsx-props-no-spreading": [
+      "off"
+    ],
+    "no-restricted-syntax": [
+      "off"
+    ],
+    "no-await-in-loop": [
+      "off"
+    ],
+    "@typescript-eslint/no-use-before-define": [
+      "off"
+    ],
+    "import/no-cycle": [
+      "off"
+    ],
+    "no-param-reassign": [
+      "off"
+    ],
+    "no-async-promise-executor": [
+      "off"
+    ],
+    "no-alert": [
+      "off"
+    ],
+    "no-continue": [
+      "off"
+    ],
+    "import/prefer-default-export": [
+      "off"
+    ],
+    // some console functions are expected
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "error",
+          "info"
+        ]
+      }
+    ],
+    "@typescript-eslint/no-throw-literal": [
+      "off"
+    ],
+    "@typescript-eslint/naming-convention": [
+      "off"
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "ignorePatterns": [
+    ".expo",
+    ".expo-shared",
+    "web-build"
+  ]
+}
