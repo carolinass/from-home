@@ -27,6 +27,10 @@ const Home = ({ navigation }) => {
     navigation.navigate('Overview', { screen: 'Create Room' });
   }
 
+  const goToInviteFriend = () => {
+    navigation.navigate('Invite Friend', { screen: 'Create Home' });
+  }
+
   const newEvent = () => {
     console.log('new event')
   }
@@ -87,7 +91,7 @@ const Home = ({ navigation }) => {
               <Text>{`${roomate?.firstName} ${roomate?.lastName}`}</Text>
             </ListItem>
           )}
-          <Button transparent>
+          <Button transparent onPress={goToInviteFriend}>
             <Text>Add Roomate</Text>
           </Button>
         </List>
