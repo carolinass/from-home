@@ -57,7 +57,7 @@ const TabOneStack = createStackNavigator<HomeParamList>();
 
 function TabOneNavigator() {
   return (
-    <TabOneStack.Navigator>
+    <TabOneStack.Navigator screenOptions={{ headerShown: false }}>
       <TabOneStack.Screen
         name="Home"
         component={Home}
