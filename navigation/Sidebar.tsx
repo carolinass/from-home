@@ -1,17 +1,19 @@
 import React from 'react'
-import { Container, Content, Text, List, ListItem } from 'native-base'
+import { Container, Content, Text, List, ListItem, Icon } from 'native-base'
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
-import { Image } from 'react-native'
+import { ImageBackground } from 'react-native'
 import { DrawerNavigationState } from '@react-navigation/native'
 import background from '../assets/images/drawer.png'
+import { useUser } from '../hooks/useUser'
 
 const SideBar: React.FC<DrawerContentComponentProps> = (props) => {
   const { state } = props
+  const { user } = useUser()
 
   return (
     <Container>
       <Content>
-        <Image
+        <ImageBackground
           source={background}
           style={{
             height: 120,
@@ -19,7 +21,12 @@ const SideBar: React.FC<DrawerContentComponentProps> = (props) => {
             justifyContent: 'center',
             alignItems: 'center'
           }}
-        />
+        >
+          <Icon name="ios-happy" />
+          <Text>
+            {user?.profile.firstName} {user?.profile.lastName}
+          </Text>
+        </ImageBackground>
         <List
           dataArray={state.routes}
           keyExtractor={(route) => route.key}

@@ -5,6 +5,7 @@ import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'
 import * as firebase from 'firebase'
 import { Root, Spinner } from 'native-base'
+import { LogBox } from 'react-native'
 import UserProvider from './contexts/userContext'
 
 import useCachedResources from './hooks/useCachedResources'
@@ -17,6 +18,8 @@ import firebaseConfig from './firebaseConfig'
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 }
+
+LogBox.ignoreLogs(['Setting a timer'])
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
