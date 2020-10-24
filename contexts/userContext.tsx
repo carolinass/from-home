@@ -37,7 +37,6 @@ const UserContextComp: React.FC<{ onDoneLoading: () => void }> = ({ children, on
             .firestore()
             .doc(`users/${uid}`)
             .onSnapshot((doc) => {
-              console.log(doc.data())
               setUser({ uid, email, photoURL, ...(doc.data() as any) })
             })
           // .get()

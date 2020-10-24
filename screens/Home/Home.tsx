@@ -20,11 +20,11 @@ const Home = ({ navigation }) => {
   const [rooms, setRooms] = useState<any[]>([])
 
   const goToCreateHome = () => {
-    navigation.navigate('Home', { screen: 'CreateHome' });
+    navigation.navigate('Overview', { screen: 'Create Home' });
   }
 
   const goToCreateRoom = () => {
-    navigation.navigate('Home', { screen: 'CreateRoom' });
+    navigation.navigate('Overview', { screen: 'Create Room' });
   }
 
   const newEvent = () => {
@@ -44,14 +44,17 @@ const Home = ({ navigation }) => {
 
   const getRooms = async (homeId: string) => {
     const db = firebase.firestore();
-    db.collection('rooms').where('homeId', '==', homeId).get()
-        .then((querySnapshot) => {
-        const rooms: React.SetStateAction<any[]> = []
-        querySnapshot.forEach((doc) => {
-          rooms.push({ id: doc.id, ...doc.data() })
-        })
+    db.collection('rooms').where('homeId', '==', homeId)
+      .onSnapshot((querySnapshot) => {
+        // @ts-ignore
+        const rooms = [];
+        querySnapshot.forEach(function(doc) {
+            rooms.push({ id: doc.id, ...doc.data() });
+        });
+        // @ts-ignore
         setRooms(rooms)
-      })
+      }
+    );
   }
 
   useEffect(() => {
