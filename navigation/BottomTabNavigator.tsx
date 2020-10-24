@@ -64,10 +64,10 @@ function HomeNavigator() {
   return (
     <HomeStack.Navigator drawerContent={(props) => <SideBar {...props} />}>
       <HomeStack.Screen name="My Home" component={Home} />
-      <HomeStack.Screen name="Upcoming Events" component={UpcomingEventsScreen} />
+      <HomeStack.Screen name="Upcoming Events" component={UpcomingEventsScreen} options={{ unmountOnBlur: true }} />
       <HomeStack.Screen name="Create Room" component={CreateRoom} />
       <HomeStack.Screen name="Invite Friend" component={InviteFriend} />
-      <HomeStack.Screen name="Schedule Event" component={ScheduleEventScreen} />
+      <HomeStack.Screen name="Schedule Event" component={ScheduleEventScreen} options={{ unmountOnBlur: true }} />
 
       <HomeStack.Screen name="Create Home" component={CreateHome} options={{ hidden: true }} />
       <HomeStack.Screen name="Join Home" component={JoinHome} options={{ hidden: true }} />

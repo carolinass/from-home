@@ -27,7 +27,7 @@ const UpcomingEventsScreen: React.FC<DrawerScreenProps<any>> = () => {
       const eventList = await firestore()
         .collection('/events')
         .where('homeId', '==', user?.homeId)
-        .where('endDate', '<=', new Date())
+        .where('endDate', '>=', new Date())
         .orderBy('endDate', 'asc')
         .get()
 
