@@ -6,6 +6,7 @@ import { BaseLayout } from '../components/layout';
 import { useUser } from '../hooks/useUser';
 
 const TabMoreScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
+
   const onLogout = useCallback(() => {
     firebase.auth().signOut()
   }, [navigation])
@@ -16,6 +17,8 @@ const TabMoreScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
       navigation.replace('Auth')
     }
   }, [user])
+
+  console.log(user)
 
   return (
     <BaseLayout title="More">
