@@ -24,7 +24,7 @@ const SideBar: React.FC<DrawerContentComponentProps> = (props) => {
         >
           <Icon name="ios-happy" />
           <Text>
-            {user?.profile.firstName} {user?.profile.lastName}
+            {user?.firstName} {user?.lastName}
           </Text>
         </ImageBackground>
         <List

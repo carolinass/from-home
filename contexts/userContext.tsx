@@ -5,11 +5,9 @@ type User = {
   uid: string
   email: string | null
   photoURL: string | null
-  profile: {
-    firstName: string
-    lastName: string
-    homeId: string | null
-  }
+  firstName: string
+  lastName: string
+  homeId: string | null
 }
 
 export const UserContext = createContext<{ user: User | null; setUser: (user: any) => void; loadingUser: boolean }>({
@@ -35,10 +33,13 @@ const UserContextComp: React.FC<{ onDoneLoading: () => void }> = ({ children, on
           // User is signed in.
           const { uid, email, photoURL } = firebaseUser
 
-          firebase.firestore().doc(`users/${uid}`).onSnapshot((doc) => {
-            console.log(doc.data())
-            setUser({ uid, email, photoURL, ...doc.data() as any })
-          })
+          firebase
+            .firestore()
+            .doc(`users/${uid}`)
+            .onSnapshot((doc) => {
+              console.log(doc.data())
+              setUser({ uid, email, photoURL, ...(doc.data() as any) })
+            })
           // .get()
         } else setUser(null)
       } catch (error) {
