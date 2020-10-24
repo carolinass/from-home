@@ -1,3 +1,4 @@
+import React from 'react'
 import { StatusBar } from "expo-status-bar";
 import { Content, Body, Container, Header, Left, Title, Right } from "native-base";
 
@@ -15,8 +16,8 @@ export const BaseLayout: React.FC<HeaderProps> = ({ children, title }) => (
       </Body>
       <Right />
     </Header>
-    <Content>
-        {children}
+    <Content padder>
+      {children}
     </Content>
   </Container>
 )

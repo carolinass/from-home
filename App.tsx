@@ -13,6 +13,7 @@ import Navigation from './navigation';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import firebaseConfig from './firebaseConfig';
+import { Root } from 'native-base';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -36,7 +37,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <UserProvider>
-        <Navigation colorScheme={colorScheme} />
+        <Root>
+          <Navigation colorScheme={colorScheme} />
+        </Root>
         <StatusBar />
       </UserProvider>
     </SafeAreaProvider>
