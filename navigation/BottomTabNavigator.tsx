@@ -9,6 +9,7 @@ import CreateHome from '../screens/CreateHome';
 import Home from '../screens/Home';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, HomeParamList, TabTwoParamList } from '../types';
+import TabMoreScreen from '../screens/TabMoreScreen'
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -31,6 +32,13 @@ export default function BottomTabNavigator() {
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="More"
+        component={TabMoreNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-menu" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -75,5 +83,19 @@ function TabTwoNavigator() {
         options={{ headerTitle: 'Tab Two Title' }}
       />
     </TabTwoStack.Navigator>
+  );
+}
+
+const TabMoreStack = createStackNavigator();
+
+function TabMoreNavigator() {
+  return (
+    <TabMoreStack.Navigator screenOptions={{ headerShown: false }}>
+      <TabMoreStack.Screen
+        name="TabMoreScreen"
+        component={TabMoreScreen}
+        options={{ headerTitle: 'Tab More Title' }}
+      />
+    </TabMoreStack.Navigator>
   );
 }
