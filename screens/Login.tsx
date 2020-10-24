@@ -14,7 +14,7 @@ class Login extends Component {
       if (user) {
         console.log('signed in!', user)
         // @ts-ignore
-        this.props.navigation.navigate('Root')
+        this.props.navigation.replace('Root')
       } else {
         console.log('logged out')
       }
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'salmon',
   },
   titleText:{
-    fontFamily: 'Baskerville',
     fontSize: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -110,14 +109,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonText:{
-    fontFamily: 'Baskerville',
     fontSize: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
   input: {
     width: 200,
-    fontFamily: 'Baskerville',
     fontSize: 20,
     height: 44,
     padding: 10,
