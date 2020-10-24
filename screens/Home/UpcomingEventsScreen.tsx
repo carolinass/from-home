@@ -3,11 +3,13 @@ import { DrawerScreenProps } from '@react-navigation/drawer'
 import { Body, Card, CardItem, Icon, Left, List, Spinner, Text } from 'native-base'
 import { firestore } from 'firebase'
 import { format } from 'date-fns'
+import { RefreshControl } from 'react-native'
 import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
 
 const UpcomingEventsScreen: React.FC<DrawerScreenProps<any>> = () => {
   const [events, setEvents] = useState<any[] | null>(null)
+  const [refreshing, setRefreshing] = useState(true)
   const { user } = useUser()
 
   useEffect(() => {
@@ -38,17 +40,26 @@ const UpcomingEventsScreen: React.FC<DrawerScreenProps<any>> = () => {
           people: event.data().people.map((person: any) => allPeople.find((p) => p.id === person))
         }))
       )
+
+      setRefreshing(false)
     }
-    init()
-  }, [user])
+
+    if (refreshing) {
+      init()
+    }
+  }, [user, refreshing])
 
   return (
-    <BaseLayout title="Upcoming Events">
+    <BaseLayout title="Upcoming Events" useView>
       {events === null ? (
         <Spinner />
       ) : (
         <>
-          <List dataArray={events} renderItem={({ item, index }) => <UpcomingEvent {...item} />} nestedScrollEnabled />
+          <List
+            dataArray={events}
+            renderItem={({ item, index }) => <UpcomingEvent {...item} />}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} />}
+          />
           {events?.length === 0 && <Text>No upcoming events...</Text>}
         </>
       )}

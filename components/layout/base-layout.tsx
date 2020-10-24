@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { Content, Body, Container, Header, Left, Title, Right, Button, Icon } from 'native-base'
+import { Content, Body, Container, Header, Left, Title, Right, Button, Icon, View } from 'native-base'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 
 type HeaderProps = {
   title: string
+  useView?: boolean
 }
 
-export const BaseLayout: React.FC<HeaderProps> = ({ children, title }) => {
+export const BaseLayout: React.FC<HeaderProps> = ({ children, title, useView = false }) => {
   const { dispatch } = useNavigation()
+
+  const ContentComponent = useMemo<React.FC>(
+    () =>
+      useView
+        ? ({ children: c }) => <View style={{ flex: 1 }}>{c}</View>
+        : ({ children: c }) => <Content padder>{c}</Content>,
+    [useView]
+  )
 
   return (
     <Container>
@@ -24,7 +33,7 @@ export const BaseLayout: React.FC<HeaderProps> = ({ children, title }) => {
         </Body>
         <Right />
       </Header>
-      <Content padder>{children}</Content>
+      <ContentComponent>{children}</ContentComponent>
     </Container>
   )
 }
