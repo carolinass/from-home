@@ -1,8 +1,10 @@
 import React from 'react';
-import { H2, Button, Text } from 'native-base';
+import { H3, Button, Text } from 'native-base';
 import { Share } from 'react-native';
 import { BaseLayout } from '../../components/layout';
 import { useUser } from '../../hooks/useUser';
+import { StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 // @ts-ignore
 const InviteFriend = ({ navigation }) => {
@@ -30,12 +32,21 @@ const InviteFriend = ({ navigation }) => {
 
   return (
     <BaseLayout title="Invite Roomate">
-      <H2>To invite your roomates, share your home ID with them!</H2>
+      <H3 style={styles.text}>Share your home ID with your friends to invite them to your home!</H3>
       <Button full onPress={share}>
+        <Ionicons size={20} name="ios-share-alt" color="white"/>
         <Text>Share</Text>
       </Button>
     </BaseLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    marginTop: 30,
+    marginBottom: 30,
+    textAlign: 'center'
+  },
+});
 
 export default InviteFriend
