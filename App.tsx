@@ -1,24 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar'
+import React, { useEffect, useState } from 'react'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import * as Font from 'expo-font'
+import { Ionicons } from '@expo/vector-icons'
+import * as firebase from 'firebase'
+import { Root, Spinner } from 'native-base'
 import UserProvider from './contexts/userContext'
 
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import useCachedResources from './hooks/useCachedResources'
+import useColorScheme from './hooks/useColorScheme'
+import Navigation from './navigation'
 
-import * as firebase from 'firebase';
-import 'firebase/firestore';
-import firebaseConfig from './firebaseConfig';
-import { Root, Spinner } from 'native-base';
+import 'firebase/firestore'
+import firebaseConfig from './firebaseConfig'
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
+}
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+  const isLoadingComplete = useCachedResources()
+  const colorScheme = useColorScheme()
   const [fontsReady, setFontsReady] = useState(false)
   const [userReady, setUserReady] = useState(false)
 
@@ -26,7 +28,7 @@ export default function App() {
     Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      ...Ionicons.font,
+      ...Ionicons.font
     }).then(() => setFontsReady(true))
   }, [])
 
@@ -34,14 +36,10 @@ export default function App() {
     <SafeAreaProvider>
       <UserProvider onDoneLoading={() => setUserReady(true)}>
         <Root>
-          {(!fontsReady || !isLoadingComplete || !userReady) ? (
-            <Spinner />
-          ) : (
-            <Navigation colorScheme={colorScheme} />
-          )}
+          {!fontsReady || !isLoadingComplete || !userReady ? <Spinner /> : <Navigation colorScheme={colorScheme} />}
         </Root>
         <StatusBar />
       </UserProvider>
     </SafeAreaProvider>
-  );
+  )
 }
