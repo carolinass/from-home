@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
+import UserProvider from './contexts/userContext'
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -34,8 +35,10 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <Navigation colorScheme={colorScheme} />
-      <StatusBar />
-     </SafeAreaProvider>
+      <UserProvider>
+        <Navigation colorScheme={colorScheme} />
+        <StatusBar />
+      </UserProvider>
+    </SafeAreaProvider>
   );
 }
