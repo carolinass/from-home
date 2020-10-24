@@ -3,6 +3,7 @@ import { Body, Container, Header, Left, Right, Title, Content, ListItem, Text, L
 import React, { useCallback } from 'react';
 import * as firebase from 'firebase';
 import { StackScreenProps } from '@react-navigation/stack';
+import { BaseLayout } from '../components/layout';
 
 const TabMoreScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const onLogout = useCallback(() => {
@@ -11,29 +12,18 @@ const TabMoreScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   }, [navigation])
 
   return (
-    <Container>
-      <StatusBar translucent={false} />
-      <Header>
-        <Left/>
-        <Body>
-          <Title>More</Title>
-        </Body>
-        <Right />
-      </Header>
-
-      <Content>
-        <List>
-          <ListItem button onPress={onLogout}>
-            <Left>
-              <Text>Logout</Text>
-            </Left>
-            <Right>
-                <Icon name="arrow-forward" />
-            </Right>
-          </ListItem>
-        </List>
-      </Content>
-    </Container>
+    <BaseLayout title="More">
+      <List>
+        <ListItem button onPress={onLogout}>
+          <Left>
+            <Text>Logout</Text>
+          </Left>
+          <Right>
+              <Icon name="arrow-forward" />
+          </Right>
+        </ListItem>
+      </List>
+    </BaseLayout>
   );
 }
 
