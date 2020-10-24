@@ -57,7 +57,7 @@ function HomeNavigator() {
   return (
     <TabOneStack.Navigator screenOptions={{ headerShown: false }}>
       <TabOneStack.Screen
-        name="Home"
+        name="MyHome"
         component={Home}
         options={{ headerTitle: 'Home' }}
       />

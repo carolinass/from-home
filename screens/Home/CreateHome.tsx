@@ -17,8 +17,12 @@ const CreateHome = ({ navigation }) => {
       name,
       users: [ userId ]
     })
-      .then(() => {
-        navigation.navigate('TabOneNavigator', { screen: 'Home' });
+      .then(async (docRef: any) => {
+        await db.collection('users').doc(userId).set({
+          homeId: docRef.id
+        }, { merge: true })
+
+        navigation.navigate('Home', { screen: 'MyHome' });
       })
       .catch(function(error) {
         console.error('Error writing document: ', error);

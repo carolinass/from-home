@@ -13,12 +13,12 @@ const CreateRoom = ({ navigation }) => {
     const db = firebase.firestore();
     // @ts-ignore
     const homeId = user.homeId
-    db.collection('homes').add({
+    db.collection('rooms').add({
       name,
       homeId
     })
       .then(() => {
-        navigation.navigate('TabOneNavigator', { screen: 'Home' });
+        navigation.navigate('Home', { screen: 'MyHome' });
       })
       .catch(function(error) {
         console.error('Error writing document: ', error);

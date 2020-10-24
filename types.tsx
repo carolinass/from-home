@@ -11,7 +11,7 @@ export type BottomTabParamList = {
 };
 
 export type HomeParamList = {
-  Home: undefined;
+  MyHome: undefined;
   CreateHome: undefined;
   CreateRoom: undefined;
 };
