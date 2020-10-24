@@ -23,6 +23,10 @@ const Home = ({ navigation }) => {
     navigation.navigate('Overview', { screen: 'Create Home' });
   }
 
+  const goToJoinHome = () => {
+    navigation.navigate('Overview', { screen: 'Join Home' });
+  }
+
   const goToCreateRoom = () => {
     navigation.navigate('Overview', { screen: 'Create Room' });
   }
@@ -35,54 +39,55 @@ const Home = ({ navigation }) => {
     console.log('new event')
   }
 
-  const getRoomates = async (home: Home) => {
+  const getRoomates = async (homeId: string) => {
     const db = firebase.firestore();
-    const roomates = await Promise.all(home.users.map(async roomateId => {
-      const doc = await db.collection('users').doc(roomateId).get();
-      return { id: doc.id, ...doc.data()}
-    }))
+    db.collection('users').where('homeId', '==', homeId)
+      .onSnapshot((querySnapshot) => {
+        // @ts-ignore
+        const roomates = [];
+        querySnapshot.forEach(function(doc) {
+            roomates.push({ id: doc.id, ...doc.data() });
+        });
+        // @ts-ignore
+        setRoomates(roomates.filter(rommate => rommate.id !== user.uid))
+      }
+    );
 
-    // @ts-ignore
-    setRoomates(roomates.filter(rommate => rommate.id !== user.uid))
   }
 
   const getRooms = async (homeId: string) => {
     const db = firebase.firestore();
-    db.collection('rooms').where('homeId', '==', homeId)
+    db.collection('rooms')
+      .where('homeId', '==', homeId)
       .onSnapshot((querySnapshot) => {
-        // @ts-ignore
-        const rooms = [];
+        const rooms: React.SetStateAction<any[]> = [];
         querySnapshot.forEach(function(doc) {
             rooms.push({ id: doc.id, ...doc.data() });
         });
-        // @ts-ignore
         setRooms(rooms)
       }
     );
   }
 
   useEffect(() => {
-    // @ts-ignore
     if (!user || !user.homeId) return
-    // @ts-ignore
     const homeId = user.homeId
     const db = firebase.firestore();
     db.collection('homes').doc(homeId).get().then(doc => {
       // @ts-ignore
       setHome({ id: doc.id, ...doc.data() })
-      getRoomates({ id: doc.id, ...doc.data() } as Home)
+      getRoomates(doc.id)
       getRooms(doc.id)
     })
   }, [user])
 
   return (
-    // @ts-ignore
     user && user.homeId && home ?
       <BaseLayout title={home.name}>
-        <Button block onPress={newEvent} style={styles.newEventBtn}>
+        <Button block onPress={newEvent} style={styles.extraMargin}>
           <Text>New Event</Text>
         </Button>
-        <List style={styles.list}>
+        <List style={styles.extraMargin}>
           <ListItem itemHeader first>
             <H3>ROOMIES</H3>
           </ListItem>
@@ -92,7 +97,7 @@ const Home = ({ navigation }) => {
             </ListItem>
           )}
           <Button transparent onPress={goToInviteFriend}>
-            <Text>Add Roomate</Text>
+            <Text>Invite Roomate</Text>
           </Button>
         </List>
         <List>
@@ -111,19 +116,18 @@ const Home = ({ navigation }) => {
       </BaseLayout>
     :
       <BaseLayout title="Home">
-        <Button full onPress={goToCreateHome}>
-          <Text>Create Home</Text>
+        <Button block onPress={goToCreateHome} style={styles.extraMargin}>
+          <Text>Create New Home</Text>
+        </Button>
+        <Button block onPress={goToJoinHome}>
+          <Text>Join Existing Home</Text>
         </Button>
       </BaseLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  newEventBtn: {
-    marginTop: 15,
-    marginBottom: 15
-  },
-  list: {
+  extraMargin: {
     marginTop: 15,
     marginBottom: 15
   }

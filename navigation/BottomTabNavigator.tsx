@@ -16,6 +16,7 @@ import CreateRoom from '../screens/Home/CreateRoom'
 import ScheduleEventScreen from '../screens/Home/ScheduleEventScreen'
 import SideBar from './Sidebar'
 import InviteFriend from '../screens/Home/InviteFriend'
+import JoinHome from '../screens/Home/JoinHome'
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
@@ -62,6 +63,7 @@ function HomeNavigator() {
     <HomeStack.Navigator drawerContent={(props) => <SideBar {...props} />}>
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Create Home" component={CreateHome} />
+      <HomeStack.Screen name="Join Home" component={JoinHome} />
       <HomeStack.Screen name="Create Room" component={CreateRoom} />
       <HomeStack.Screen name="Invite Friend" component={InviteFriend} />
       <HomeStack.Screen name="Schedule Event" component={ScheduleEventScreen} />
