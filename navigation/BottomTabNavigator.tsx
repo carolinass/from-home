@@ -14,6 +14,7 @@ import TabMoreScreen from '../screens/TabMoreScreen'
 import TabBar from './TabBar'
 import CreateRoom from '../screens/Home/CreateRoom'
 import ScheduleEventScreen from '../screens/Home/ScheduleEventScreen'
+import UpcomingEventsScreen from '../screens/Home/UpcomingEventsScreen'
 import SideBar from './Sidebar'
 import InviteFriend from '../screens/Home/InviteFriend'
 import JoinHome from '../screens/Home/JoinHome'
@@ -62,6 +63,7 @@ function HomeNavigator() {
   return (
     <HomeStack.Navigator drawerContent={(props) => <SideBar {...props} />}>
       <HomeStack.Screen name="My Home" component={Home} />
+      <HomeStack.Screen name="Upcoming Events" component={UpcomingEventsScreen} />
       <HomeStack.Screen name="Create Home" component={CreateHome} />
       <HomeStack.Screen name="Join Home" component={JoinHome} />
       <HomeStack.Screen name="Create Room" component={CreateRoom} />
