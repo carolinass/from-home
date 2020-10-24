@@ -48,7 +48,7 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <Text style={styles.titleText}>NoNow</Text>
+        <Text style={styles.titleText}>NoNow</Text>
         <TextInput
           value={this.state.email}
           keyboardType = 'email-address'
