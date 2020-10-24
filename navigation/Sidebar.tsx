@@ -52,6 +52,10 @@ const SideBarItem: React.FC<SideBarItemProps> = ({ navigation, descriptors, data
     navigation.navigate(data.name)
   }
 
+  if (options.hidden) {
+    return null
+  }
+
   return (
     <ListItem button onPress={onPress}>
       <Text>{label}</Text>
