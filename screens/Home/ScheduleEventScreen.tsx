@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { DrawerScreenProps } from '@react-navigation/drawer'
 import { Button, DatePicker, Form, Icon, Input, Item, Label, Picker, Text, Toast } from 'native-base'
 import firebase, { firestore } from 'firebase'
-import { addMinutes } from 'date-fns'
+import { addMinutes, setHours, setMinutes } from 'date-fns'
 import MultiSelect from 'react-native-multiple-select'
 import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
@@ -75,17 +75,20 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
       return Toast.show({ text: errorMessages.join('\n'), buttonText: 'Okay' })
     }
 
-    await firebase.firestore().collection('events').add({
+    const startDate = setMinutes(setHours(date, startTime!.getHours()), startTime!.getMinutes())
+    const endDate = setMinutes(setHours(date, endTime!.getHours()), endTime!.getMinutes())
+
+    await firebase.firestore().collection(`events`).add({
+      homeId: user?.homeId,
       title,
       room: selectedRoom,
-      date,
-      startTime,
-      endTime,
+      startDate,
+      endDate,
       people: selectedPeople
     })
 
     return navigation.navigate('Home')
-  }, [title, selectedPeople, date, startTime, endTime, selectedRoom, navigation])
+  }, [title, selectedPeople, date, startTime, endTime, selectedRoom, navigation, user])
 
   return (
     <BaseLayout title="Schedule Event">
