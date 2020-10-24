@@ -5,7 +5,7 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  HomeNavigator: undefined;
+  Home: undefined;
   TabTwo: undefined;
   More: undefined;
 };

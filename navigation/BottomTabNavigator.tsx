@@ -25,7 +25,7 @@ export default function BottomTabNavigator() {
       tabBar={TabBar}
     >
       <BottomTab.Screen
-        name="HomeNavigator"
+        name="Home"
         component={HomeNavigator}
         options={{
           tabBarIcon: () => <Icon name="ios-code" />
