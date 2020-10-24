@@ -25,22 +25,22 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Overview"
+      initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
       tabBar={TabBar}
     >
       <BottomTab.Screen
-        name="Overview"
+        name="Home"
         component={HomeNavigator}
         options={{
-          tabBarIcon: () => <Icon name="ios-code" />
+          tabBarIcon: () => <Icon name="ios-home" />
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Profile"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: () => <Icon name="ios-code" />
+          tabBarIcon: () => <Icon name="ios-contact" />
         }}
       />
       <BottomTab.Screen
@@ -61,7 +61,7 @@ const HomeStack = createDrawerNavigator()
 function HomeNavigator() {
   return (
     <HomeStack.Navigator drawerContent={(props) => <SideBar {...props} />}>
-      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="My Home" component={Home} />
       <HomeStack.Screen name="Create Home" component={CreateHome} />
       <HomeStack.Screen name="Join Home" component={JoinHome} />
       <HomeStack.Screen name="Create Room" component={CreateRoom} />
@@ -75,8 +75,8 @@ const TabTwoStack = createStackNavigator<TabTwoParamList>()
 
 function TabTwoNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} options={{ headerTitle: 'Tab Two Title' }} />
+    <TabTwoStack.Navigator screenOptions={{ headerShown: false }}>
+      <TabTwoStack.Screen name="Profile" component={TabTwoScreen} />
     </TabTwoStack.Navigator>
   )
 }

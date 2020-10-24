@@ -20,15 +20,15 @@ const Home = ({ navigation }) => {
   const [rooms, setRooms] = useState<any[]>([])
 
   const goToCreateHome = () => {
-    navigation.navigate('Overview', { screen: 'Create Home' });
+    navigation.navigate('Home', { screen: 'Create Home' });
   }
 
   const goToJoinHome = () => {
-    navigation.navigate('Overview', { screen: 'Join Home' });
+    navigation.navigate('Home', { screen: 'Join Home' });
   }
 
   const goToCreateRoom = () => {
-    navigation.navigate('Overview', { screen: 'Create Room' });
+    navigation.navigate('Home', { screen: 'Create Room' });
   }
 
   const goToInviteFriend = () => {
