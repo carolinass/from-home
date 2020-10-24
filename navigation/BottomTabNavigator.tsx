@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import * as React from 'react'
 
 import { Icon } from 'native-base'
@@ -12,6 +13,7 @@ import { BottomTabParamList, HomeParamList, TabTwoParamList } from '../types'
 import TabMoreScreen from '../screens/TabMoreScreen'
 import TabBar from './TabBar'
 import CreateRoom from '../screens/Home/CreateRoom'
+import SideBar from './Sidebar'
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
@@ -51,27 +53,15 @@ export default function BottomTabNavigator() {
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<HomeParamList>()
+const HomeStack = createDrawerNavigator()
 
 function HomeNavigator() {
   return (
-    <TabOneStack.Navigator screenOptions={{ headerShown: false }}>
-      <TabOneStack.Screen
-        name="Home"
-        component={Home}
-        options={{ headerTitle: 'Home' }}
-      />
-      <TabOneStack.Screen
-        name="CreateHome"
-        component={CreateHome}
-        options={{ headerTitle: 'Create Home' }}
-      />
-      <TabOneStack.Screen
-        name="CreateRoom"
-        component={CreateRoom}
-        options={{ headerTitle: 'Create Room' }}
-      />
-    </TabOneStack.Navigator>
+    <HomeStack.Navigator drawerContent={SideBar}>
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Create Home" component={CreateHome} />
+      <HomeStack.Screen name="Create Room" component={CreateRoom} />
+    </HomeStack.Navigator>
   )
 }
 
