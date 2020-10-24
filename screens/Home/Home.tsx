@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Text, View, H2, H3, List, ListItem } from 'native-base';
+import { Button, Text, View, H3, List, ListItem } from 'native-base';
 import * as firebase from 'firebase'
-import { useUser } from '../hooks/useUser';
-import { BaseLayout } from '../components/layout';
+import { useUser } from '../../hooks/useUser';
+import { BaseLayout } from '../../components/layout';
 
 interface Home {
   id: string
@@ -15,6 +15,7 @@ const Home = ({ navigation }) => {
   const { user } = useUser()
   const [home, setHome] = useState<Home>()
   const [roomates, setRoomates] = useState<any[]>([])
+  const [fabState, setFabState] = useState(false)
 
   const goToCreateHome = () => {
     navigation.navigate('TabOneNavigator', { screen: 'CreateHome' });
@@ -69,6 +70,14 @@ const Home = ({ navigation }) => {
               <Text>{`${roomate?.firstName} ${roomate?.lastName}`}</Text>
             </ListItem>
           )}
+        </List>
+        <List>
+          <ListItem itemHeader first>
+            <H3>ROOMS</H3>
+          </ListItem>
+          <ListItem>
+            <Text>Room 1</Text>
+          </ListItem>
         </List>
       </BaseLayout>
     :

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Item, Input, Button, Text } from 'native-base';
 import * as firebase from 'firebase'
-import { useUser } from '../hooks/useUser';
+import { useUser } from '../../hooks/useUser';
+import { BaseLayout } from '../../components/layout';
 
 // @ts-ignore
 const CreateHome = ({ navigation }) => {
@@ -25,14 +26,16 @@ const CreateHome = ({ navigation }) => {
   }
 
   return (
-    <Form>
-      <Item>
-        <Input placeholder="Name" value={name} onChangeText={setName} />
-      </Item>
-      <Button full onPress={create}>
-        <Text>Create</Text>
-      </Button>
-    </Form>
+    <BaseLayout title="New Home">
+      <Form>
+        <Item>
+          <Input placeholder="Name" value={name} onChangeText={setName} />
+        </Item>
+        <Button full onPress={create}>
+          <Text>Create</Text>
+        </Button>
+      </Form>
+    </BaseLayout>
   );
 }
 

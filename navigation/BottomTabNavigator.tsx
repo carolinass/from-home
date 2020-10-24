@@ -5,11 +5,12 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import CreateHome from '../screens/CreateHome';
-import Home from '../screens/Home';
+import CreateHome from '../screens/Home/CreateHome';
+import Home from '../screens/Home/Home';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, HomeParamList, TabTwoParamList } from '../types';
 import TabMoreScreen from '../screens/TabMoreScreen'
+import CreateRoom from '../screens/Home/CreateRoom';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -18,11 +19,11 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOneNavigator"
+      initialRouteName="HomeNavigator"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOneNavigator"
-        component={TabOneNavigator}
+        name="HomeNavigator"
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
@@ -55,7 +56,7 @@ function TabBarIcon(props: { name: string; color: string }) {
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator<HomeParamList>();
 
-function TabOneNavigator() {
+function HomeNavigator() {
   return (
     <TabOneStack.Navigator screenOptions={{ headerShown: false }}>
       <TabOneStack.Screen
@@ -67,6 +68,11 @@ function TabOneNavigator() {
         name="CreateHome"
         component={CreateHome}
         options={{ headerTitle: 'Create Home' }}
+      />
+      <TabOneStack.Screen
+        name="CreateRoom"
+        component={CreateRoom}
+        options={{ headerTitle: 'Create Room' }}
       />
     </TabOneStack.Navigator>
   );
