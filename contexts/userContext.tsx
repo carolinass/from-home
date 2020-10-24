@@ -1,25 +1,42 @@
 import React, { useState, useEffect, createContext } from 'react'
 import * as firebase from 'firebase'
 
-export const UserContext = createContext({ user: null })
+type User = {
+  uid: string
+  email: string | null
+  photoURL: string | null
+  profile: {
+    firstName: string
+    lastName: string
+    homeId: string | null
+  }
+}
 
-// @ts-ignore
-export default function UserContextComp({ children }) {
-  const [user, setUser] = useState(null)
+export const UserContext = createContext<{ user: User | null; setUser: (user: any) => void; loadingUser: boolean }>({
+  user: null,
+  setUser: () => null,
+  loadingUser: true
+})
+
+const UserContextComp: React.FC<{ onDoneLoading: () => void }> = ({ children, onDoneLoading }) => {
+  const [user, setUser] = useState<User | null>(null)
   const [loadingUser, setLoadingUser] = useState(true) // Helpful, to update the UI accordingly.
 
   useEffect(() => {
-    // Listen authenticated user
-    // @ts-ignore
-    const unsubscriber = firebase.auth().onAuthStateChanged(async (user) => {
+    if (!loadingUser) {
+      onDoneLoading()
+    }
+  }, [onDoneLoading, loadingUser])
+
+  useEffect(() => {
+    const unsubscriber = firebase.auth().onAuthStateChanged(async (firebaseUser) => {
       try {
-        if (user) {
+        if (firebaseUser) {
           // User is signed in.
-          const { uid, displayName, email, photoURL } = user
-          // You could also look for the user doc in your Firestore (if you have one):
-          // const userDoc = await firebase.firestore().doc(`users/${uid}`).get()
-          // @ts-ignore
-          setUser({ uid, displayName, email, photoURL })
+          const { uid, email, photoURL } = firebaseUser
+
+          const profile = await firebase.firestore().doc(`users/${uid}`).get()
+          setUser({ uid, email, photoURL, profile: profile.data() as any })
         } else setUser(null)
       } catch (error) {
         // Most probably a connection error. Handle appropriately.
@@ -32,10 +49,7 @@ export default function UserContextComp({ children }) {
     return () => unsubscriber()
   }, [])
 
-  return (
-    // @ts-ignore
-    <UserContext.Provider value={{ user, setUser, loadingUser }}>
-      {children}
-    </UserContext.Provider>
-  )
+  return <UserContext.Provider value={{ user, setUser, loadingUser }}>{children}</UserContext.Provider>
 }
+
+export default UserContextComp
