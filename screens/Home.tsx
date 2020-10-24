@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Header, Content, Button, Text } from 'native-base';
+import { BaseLayout } from '../components/layout';
 
 // @ts-ignore
 const Home = ({ navigation }) => {
@@ -8,13 +9,11 @@ const Home = ({ navigation }) => {
   }
 
   return (
-    <Container>
-      <Content>
-        <Button full onPress={goToCreateHome}>
-          <Text>Create Home</Text>
-        </Button>
-      </Content>
-    </Container>
+    <BaseLayout title="Home">
+      <Button full onPress={goToCreateHome}>
+        <Text>Create Home</Text>
+      </Button>
+    </BaseLayout>
   );
 }
 
