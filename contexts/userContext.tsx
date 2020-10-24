@@ -1,12 +1,18 @@
 import React, { useState, useEffect, createContext } from 'react'
 import * as firebase from 'firebase'
 
-export const UserContext = createContext({ user: null })
+export const UserContext = createContext<{ user: any,  setUser: (user: any) => void, loadingUser: boolean }>({ user: null, setUser: () => null, loadingUser: true })
 
 // @ts-ignore
-export default function UserContextComp({ children }) {
+export default function UserContextComp({ children, onDoneLoading }) {
   const [user, setUser] = useState(null)
   const [loadingUser, setLoadingUser] = useState(true) // Helpful, to update the UI accordingly.
+
+  useEffect(() => {
+    if (!loadingUser) {
+      onDoneLoading()
+    }
+  }, [onDoneLoading, loadingUser])
 
   useEffect(() => {
     // Listen authenticated user
