@@ -12,10 +12,13 @@ type User = {
   }
 }
 
-export const UserContext = createContext<{ user: User | null,  setUser: (user: any) => void, loadingUser: boolean }>({ user: null, setUser: () => null, loadingUser: true })
+export const UserContext = createContext<{ user: User | null; setUser: (user: any) => void; loadingUser: boolean }>({
+  user: null,
+  setUser: () => null,
+  loadingUser: true
+})
 
-// @ts-ignore
-export default function UserContextComp({ children, onDoneLoading }) {
+const UserContextComp: React.FC<{ onDoneLoading: () => void }> = ({ children, onDoneLoading }) => {
   const [user, setUser] = useState<User | null>(null)
   const [loadingUser, setLoadingUser] = useState(true) // Helpful, to update the UI accordingly.
 
@@ -26,11 +29,11 @@ export default function UserContextComp({ children, onDoneLoading }) {
   }, [onDoneLoading, loadingUser])
 
   useEffect(() => {
-    const unsubscriber = firebase.auth().onAuthStateChanged(async (user) => {
+    const unsubscriber = firebase.auth().onAuthStateChanged(async (firebaseUser) => {
       try {
-        if (user) {
+        if (firebaseUser) {
           // User is signed in.
-          const { uid, email, photoURL } = user
+          const { uid, email, photoURL } = firebaseUser
 
           const profile = await firebase.firestore().doc(`users/${uid}`).get()
           setUser({ uid, email, photoURL, profile: profile.data() as any })
@@ -46,10 +49,7 @@ export default function UserContextComp({ children, onDoneLoading }) {
     return () => unsubscriber()
   }, [])
 
-  return (
-    // @ts-ignore
-    <UserContext.Provider value={{ user, setUser, loadingUser }}>
-      {children}
-    </UserContext.Provider>
-  )
+  return <UserContext.Provider value={{ user, setUser, loadingUser }}>{children}</UserContext.Provider>
 }
+
+export default UserContextComp
