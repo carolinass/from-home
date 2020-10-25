@@ -96,9 +96,9 @@ const Home = ({ navigation }) => {
     return null
   }
 
-  const isUserAvailable = (user: any) => {
+  const isUserAvailable = (_user: any) => {
     for (const event of events) {
-      if (event.people.includes(user.id)) {
+      if (event.people.includes(_user.id)) {
         if (isBefore(event.startDate.toDate(), Date.now()) && isAfter(event.endDate.toDate(), Date.now())) {
           return false
         }

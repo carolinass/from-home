@@ -7,11 +7,38 @@ import { useUser } from '../../hooks/useUser'
 import { Ionicons } from '@expo/vector-icons';
 import { ImageBackground } from 'react-native'
 import { StyleSheet } from 'react-native';
+import { isBefore, isAfter } from 'date-fns'
+// @ts-ignore
 import background from '../../assets/images/drawer.png'
+import ImagePicker from '../../components/ImagePicker'
 
 const ProfileScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
   const { user } = useUser()
   const [home, setHome] = useState()
+  const [events, setEvents] = useState<any[]>([])
+
+  const getUserEvents = () => {
+    const db = firestore()
+    db.collection('events')
+      .where('people', 'array-contains', user?.uid)
+      .get()
+      .then((doc) => {
+        // @ts-ignore
+        setEvents({ id: doc.id, ...doc.data()})
+      })
+  }
+
+  const isAvailable = () => {
+    if (!user) return false
+    for (const event of events) {
+      if (event.people.includes(user.uid)) {
+        if (isBefore(event.startDate.toDate(), Date.now()) && isAfter(event.endDate.toDate(), Date.now())) {
+          return false
+        }
+      }
+    }
+    return true
+  }
 
   useEffect(() => {
     if (!user || !user?.homeId) return
@@ -24,6 +51,14 @@ const ProfileScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
         setHome({ id: doc.id, ...doc.data()})
       })
   }, [user])
+
+  const onPickImage = (image: string) => {
+    if (!user) return
+    const db = firestore()
+    db.collection('users').doc(user.uid).set({
+      image
+    }, { merge: true })
+  }
 
   return (
     <BaseLayout
@@ -41,22 +76,29 @@ const ProfileScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
           style={styles.imageBackground}
         >
           <View style={styles.overlay}>
-            <Thumbnail
-              style={styles.thumbnail}
-              source={{ uri: user?.image || 'https://medgoldresources.com/wp-content/uploads/2018/02/avatar-placeholder.gif' }}
-            />
+            <ImagePicker onPickImage={onPickImage}>
+              <Thumbnail
+                style={styles.thumbnail}
+                source={{ uri: user?.image || 'https://medgoldresources.com/wp-content/uploads/2018/02/avatar-placeholder.gif' }}
+              />
+            </ImagePicker>
             <H1 style={styles.title}>{`${user?.firstName} ${user?.lastName}`}</H1>
         </View>
       </ImageBackground>
       <ListItem icon>
         <Left>
           <Button style={{ backgroundColor: "transparent" }}>
-            <Ionicons size={24} name="ios-radio-button-on" color="green" />
+            {
+              isAvailable()
+                ? <Ionicons size={24} name="ios-radio-button-on" color="green" />
+                : <Ionicons size={24} name="ios-radio-button-on" color="red" />
+            }
           </Button>
         </Left>
         <Body>
-          {/* @ts-ignore */}
-          <Text>Available</Text>
+          {
+            isAvailable() ? <Text>Available</Text> : <Text>Busy</Text>
+          }
         </Body>
       </ListItem>
       <ListItem icon>
@@ -69,19 +111,6 @@ const ProfileScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
           {/* @ts-ignore */}
           <Text>{home?.name}</Text>
         </Body>
-      </ListItem>
-      <ListItem icon>
-        <Left>
-          <Button style={{ backgroundColor: "#F92223" }}>
-            <Icon active name="notifications" />
-          </Button>
-        </Left>
-        <Body>
-          <Text>Notifications</Text>
-        </Body>
-        <Right>
-          <Switch value={false} />
-        </Right>
       </ListItem>
     </BaseLayout>
   )

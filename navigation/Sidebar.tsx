@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Content, Text, List, ListItem, H3, View, Thumbnail } from 'native-base'
+import { Container, Content, Text, List, ListItem, H3, View, Thumbnail, Icon } from 'native-base'
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
 import { Image, ImageBackground } from 'react-native';
 import { DrawerNavigationState } from '@react-navigation/native'
