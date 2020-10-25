@@ -6,16 +6,28 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 type HeaderProps = {
   title: string
   useView?: boolean
+  showBackButton?: boolean
+  rightContent?: React.ReactNode
 }
 
-export const BaseLayout: React.FC<HeaderProps> = ({ children, title, useView = false }) => {
-  const { dispatch } = useNavigation()
+export const BaseLayout: React.FC<HeaderProps> = ({
+  children,
+  title,
+  useView = false,
+  showBackButton = false,
+  rightContent
+}) => {
+  const { dispatch, goBack } = useNavigation()
 
   const ContentComponent = useMemo<React.FC>(
     () =>
       useView
         ? ({ children: c }) => <View style={{ flex: 1 }}>{c}</View>
-        : ({ children: c }) => <Content padder>{c}</Content>,
+        : ({ children: c }) => (
+            <Content padder contentContainerStyle={{ flexGrow: 1 }}>
+              {c}
+            </Content>
+          ),
     [useView]
   )
 
@@ -24,14 +36,20 @@ export const BaseLayout: React.FC<HeaderProps> = ({ children, title, useView = f
       <StatusBar translucent={false} />
       <Header>
         <Left>
-          <Button transparent onPress={() => dispatch(DrawerActions.openDrawer())}>
-            <Icon name="menu" />
-          </Button>
+          {showBackButton ? (
+            <Button transparent onPress={goBack}>
+              <Icon name="arrow-back" />
+            </Button>
+          ) : (
+            <Button transparent onPress={() => dispatch(DrawerActions.openDrawer())}>
+              <Icon name="menu" />
+            </Button>
+          )}
         </Left>
         <Body>
           <Title>{title}</Title>
         </Body>
-        <Right />
+        <Right>{rightContent}</Right>
       </Header>
       <ContentComponent>{children}</ContentComponent>
     </Container>

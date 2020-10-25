@@ -15,7 +15,6 @@ import TabBar from './TabBar'
 import CreateRoom from '../screens/Home/CreateRoom'
 import ScheduleEventScreen from '../screens/Home/ScheduleEventScreen'
 import UpcomingEventsScreen from '../screens/Home/UpcomingEventsScreen'
-import EventScreen from '../screens/Home/EventScreen'
 import SideBar from './Sidebar'
 import InviteFriend from '../screens/Home/InviteFriend'
 import JoinHome from '../screens/Home/JoinHome'
@@ -71,7 +70,6 @@ function HomeNavigator() {
 
       <HomeStack.Screen name="Create Home" component={CreateHome} options={{ hidden: true }} />
       <HomeStack.Screen name="Join Home" component={JoinHome} options={{ hidden: true }} />
-      <HomeStack.Screen name="Event" component={EventScreen} options={{ hidden: true }} />
     </HomeStack.Navigator>
   )
 }

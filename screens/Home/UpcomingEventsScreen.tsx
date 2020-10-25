@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { DrawerScreenProps } from '@react-navigation/drawer'
 import { Body, Card, CardItem, Icon, Left, List, Spinner, Text } from 'native-base'
 import { firestore } from 'firebase'
 import { format } from 'date-fns'
 import { RefreshControl } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
 
@@ -35,6 +36,7 @@ const UpcomingEventsScreen: React.FC<DrawerScreenProps<any>> = () => {
 
       setEvents(
         eventList.docs.map((event) => ({
+          id: event.id,
           ...event.data(),
           room: allRooms.find((room) => room.id === event.data().room),
           people: event.data().people.map((person: any) => allPeople.find((p) => p.id === person))
@@ -67,10 +69,16 @@ const UpcomingEventsScreen: React.FC<DrawerScreenProps<any>> = () => {
   )
 }
 
-const UpcomingEvent: React.FC<any> = ({ title, room, startDate, endDate, people }) => {
+const UpcomingEvent: React.FC<any> = ({ id, title, room, startDate, endDate, people }) => {
+  const { navigate } = useNavigation()
+
+  const onPress = useCallback(() => {
+    navigate('Event', { eventId: id })
+  }, [navigate, id])
+
   return (
     <Card style={{ elevation: 3 }}>
-      <CardItem>
+      <CardItem button onPress={onPress}>
         <Left>
           <Icon name="ios-happy" />
           <Body>
@@ -82,7 +90,7 @@ const UpcomingEvent: React.FC<any> = ({ title, room, startDate, endDate, people 
           </Body>
         </Left>
       </CardItem>
-      <CardItem>
+      <CardItem button onPress={onPress}>
         <Text>
           Room: {room.name}
           {`\n`}
