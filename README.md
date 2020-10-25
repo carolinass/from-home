@@ -1,5 +1,5 @@
 
-<p style="text-align: center">
+<p align="center">
   <img src="https://firebasestorage.googleapis.com/v0/b/nonow-e7237.appspot.com/o/logo_small.png?alt=media&token=559427f9-e7fd-4436-9866-a8cdfad01728" />
 </p>
 <p>
