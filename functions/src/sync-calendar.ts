@@ -30,7 +30,7 @@ export const syncGoogleCalendar = functions.pubsub.schedule('every 5 minutes').o
               for (const event of events.data.items ?? []) {
                 admin
                   .firestore()
-                  .doc(`events/${event.id}`)
+                  .doc(`events/${userFetch.id}${event.id}`)
                   .set({
                     isGoogleEvent: true,
                     endDate: new Date(event.end?.dateTime || event.end?.date || 0),

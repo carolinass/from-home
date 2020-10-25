@@ -4,6 +4,7 @@
 
 # Except the ESLint config file
 !.eslintrc.js
+ui-debug.log
 
 # TypeScript v1 declaration files
 typings/
