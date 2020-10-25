@@ -19,6 +19,10 @@ const Chat: React.FC<ChatProps> = ({ channel, style }) => {
 
     const updateMessages = () => {
       messagesRef.on('value', (snapshot) => {
+        const values = snapshot.val()
+        if (!values || values.length === 0) {
+          return setMessages([])
+        }
         setMessages(
           (Object.values(snapshot.val()) as any).sort(
             (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
