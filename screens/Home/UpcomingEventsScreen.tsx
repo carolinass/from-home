@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { DrawerScreenProps } from '@react-navigation/drawer'
 import { Body, Card, CardItem, Left, List, ListItem, Spinner, Text, H3 } from 'native-base'
 import { firestore } from 'firebase'
-import { format } from 'date-fns'
+import { format, isBefore, isAfter } from 'date-fns'
 import { RefreshControl } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
 import { MaterialIcons } from '@expo/vector-icons'; 
 
@@ -71,14 +69,19 @@ const UpcomingEventsScreen = () => {
           }
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} />}
         />
-        {events?.length === 0 && <Text>No upcoming events...</Text>}
+        {events?.length === 0 && <Text  style={{ marginTop: 15, marginBottom: 15 }}>No upcoming events...</Text>}
       </>
     )
   )
 }
 
-const UpcomingEvent: React.FC<any> = ({ id, title, room, startDate, endDate, people }) => {
+const UpcomingEvent: React.FC<any> = (event) => {
+  const { id, title, startDate, endDate } = event
   const { navigate } = useNavigation()
+
+  const isNow = (event: any) => {
+    return isBefore(event.startDate.toDate(), Date.now()) && isAfter(event.endDate.toDate(), Date.now())
+  }
 
   const onPress = useCallback(() => {
     navigate('Event', { eventId: id })
@@ -90,21 +93,17 @@ const UpcomingEvent: React.FC<any> = ({ id, title, room, startDate, endDate, peo
         <Left>
           <MaterialIcons name="event" size={24} />
           <Body>
-            <Text>{title}</Text>
-            <Text note>
-              {format(new Date(startDate.seconds * 1000), 'P')} {format(new Date(startDate.seconds * 1000), 'p')} -{' '}
-              {format(new Date(endDate.seconds * 1000), 'p')}
-            </Text>
+            <Text>{ title }</Text>
+            { isNow(event)
+              ? <Text note style={{ color: '#0B60FF' }}>Happening now!</Text>
+              : <Text note>
+                  {format(new Date(startDate.seconds * 1000), 'P')} {format(new Date(startDate.seconds * 1000), 'p')} -{' '}
+                  {format(new Date(endDate.seconds * 1000), 'p')}
+                </Text>
+            }
           </Body>
         </Left>
       </CardItem>
-      {/* <CardItem button onPress={onPress}>
-        <Text>
-          Room: {room.name}
-          {`\n`}
-          People: {people.map((person) => `${person.firstName} ${person.lastName}`).join(',')}
-        </Text>
-      </CardItem> */}
     </Card>
   )
 }
