@@ -7,6 +7,7 @@ import { useUser } from '../../hooks/useUser'
 import { Ionicons } from '@expo/vector-icons';
 import { ImageBackground } from 'react-native'
 import { StyleSheet } from 'react-native';
+import background from '../../assets/images/drawer.png'
 
 const ProfileScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
   const { user } = useUser()
@@ -36,7 +37,7 @@ const ProfileScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
       }
     >
       <ImageBackground
-          source={{ uri: 'https://blog.vindi.com.br/wp-content/uploads/2020/03/home-office-scaled.jpg'}}
+          source={background}
           style={styles.imageBackground}
         >
           <View style={styles.overlay}>
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     justifyContent: "center",
-    backgroundColor:'rgba(255,255,255,0.8)'
+    backgroundColor:'rgba(255,255,255,0.5)'
   }
 });
 

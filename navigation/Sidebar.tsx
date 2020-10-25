@@ -1,10 +1,11 @@
 import React from 'react'
-import { Container, Content, Text, List, ListItem, Icon } from 'native-base'
+import { Container, Content, Text, List, ListItem, H3, View, Thumbnail } from 'native-base'
 import { DrawerContentComponentProps } from '@react-navigation/drawer'
-import { ImageBackground } from 'react-native'
+import { Image, ImageBackground } from 'react-native';
 import { DrawerNavigationState } from '@react-navigation/native'
 import background from '../assets/images/drawer.png'
 import { useUser } from '../hooks/useUser'
+import { StyleSheet } from 'react-native'
 
 const SideBar: React.FC<DrawerContentComponentProps> = (props) => {
   const { state } = props
@@ -15,17 +16,14 @@ const SideBar: React.FC<DrawerContentComponentProps> = (props) => {
       <Content>
         <ImageBackground
           source={background}
-          style={{
-            height: 120,
-            alignSelf: 'stretch',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
+          style={styles.imageBackground}
         >
-          <Icon name="ios-happy" />
-          <Text>
-            {user?.firstName} {user?.lastName}
-          </Text>
+          <View style={styles.overlay}>
+            <Thumbnail style={styles.thumbnail} source={{ uri: user?.image || 'https://medgoldresources.com/wp-content/uploads/2018/02/avatar-placeholder.gif' }} />
+            <H3>
+              {user?.firstName} {user?.lastName}
+            </H3>
+          </View>
         </ImageBackground>
         <List
           dataArray={state.routes}
@@ -62,5 +60,26 @@ const SideBarItem: React.FC<SideBarItemProps> = ({ navigation, descriptors, data
     </ListItem>
   )
 }
+
+const styles = StyleSheet.create({
+  title: { textAlign: 'center', paddingBottom: 0, paddingTop: 0 },
+  thumbnail: { marginRight: 20 },
+  imageBackground: {
+    height: 100,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  overlay: {
+    paddingTop: 0,
+    paddingLeft: 20,
+    width: '100%',
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor:'rgba(255,255,255,0.5)'
+  }
+});
 
 export default SideBar
