@@ -20,17 +20,17 @@ yarn start
 
 ## Author
 
-👤 **Carol Cabral & Jan Houben**
+👤 **Carol Cabral**
 
-* Github: [@carolinass & @minextu](https://github.com/carolinass & @minextu)
+* Github: [@carolinass](https://github.com/carolinass)
 
-## Show your support
+👤 **Jan Houben**
 
-Give a ⭐️ if this project helped you!
+* Github: [@minextu](https://github.com/minextu)
 
 ## 📝 License
 
-Copyright © 2020 [Carol Cabral & Jan Houben](https://github.com/carolinass & @minextu).<br />
+Copyright © 2020 [Carol Cabral](https://github.com/carolinass) [Jan Houben](https://github.com/minextu).<br />
 This project is [GNU General Public License v3.0](https://github.com/carolinass/team-d/blob/main/LICENSE) licensed.
 
 ***
