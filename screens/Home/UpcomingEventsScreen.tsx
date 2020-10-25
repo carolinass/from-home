@@ -77,7 +77,7 @@ const UpcomingEventsScreen: FC<IProps> = ({ roomId }) => {
           }
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} />}
         />
-        <Text  style={{ marginLeft: 15, marginBottom: 15 }}>No upcoming events...</Text>
+        { events?.length === 0 && <Text  style={{ marginLeft: 15, marginBottom: 15 }}>No upcoming events...</Text> }
       </View>
     )
   )

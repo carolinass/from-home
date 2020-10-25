@@ -8,11 +8,8 @@ import UpcomingEventsScreen from './UpcomingEventsScreen'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 const RoomScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
-  const { user } = useUser()
   const { roomId } = route.params
-  const [events, setEvents] = useState<null | any>(null)
   const [room, setRoom] = useState<null | any>(null)
-  const [actionLoading, setActionLoading] = useState(false)
 
   const loadEvent = useCallback(() => {
     return firestore()
