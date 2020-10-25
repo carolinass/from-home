@@ -1,7 +1,7 @@
 
-<div style="text-align: center">
+<p style="text-align: center">
   <img src="https://firebasestorage.googleapis.com/v0/b/nonow-e7237.appspot.com/o/logo_small.png?alt=media&token=559427f9-e7fd-4436-9866-a8cdfad01728" />
-</div>
+</p>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/carolinass/team-d/blob/main/LICENSE" target="_blank">
