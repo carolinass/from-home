@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import { Button, Form, Input, Item, Label, Text, Toast, View } from 'native-base';
 import { useUser } from '../../hooks/useUser';
 import { Image, ImageBackground } from 'react-native';
+import background from '../../assets/images/background-fromhome.jpg'
 
 const LoginScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ const LoginScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={{ uri: 'https://blog.vindi.com.br/wp-content/uploads/2020/03/home-office-scaled.jpg' }}
+      source={background}
       style={styles.imageBackground}
     >
       <View style={styles.overlay}>

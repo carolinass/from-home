@@ -79,7 +79,7 @@ const ProfileScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
             <ImagePicker onPickImage={onPickImage}>
               <Thumbnail
                 style={styles.thumbnail}
-                source={{ uri: user?.image || 'https://medgoldresources.com/wp-content/uploads/2018/02/avatar-placeholder.gif' }}
+                source={{ uri: user?.image || 'https://firebasestorage.googleapis.com/v0/b/nonow-e7237.appspot.com/o/Screen%20Shot%202020-10-25%20at%202.46.20%20PM.png?alt=media&token=0bce169f-69cd-48f9-9119-ecf29ed15e50' }}
               />
             </ImagePicker>
             <H1 style={styles.title}>{`${user?.firstName} ${user?.lastName}`}</H1>

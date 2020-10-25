@@ -19,7 +19,7 @@ const SideBar: React.FC<DrawerContentComponentProps> = (props) => {
           style={styles.imageBackground}
         >
           <View style={styles.overlay}>
-            <Thumbnail style={styles.thumbnail} source={{ uri: user?.image || 'https://medgoldresources.com/wp-content/uploads/2018/02/avatar-placeholder.gif' }} />
+            <Thumbnail style={styles.thumbnail} source={{ uri: user?.image || 'https://firebasestorage.googleapis.com/v0/b/nonow-e7237.appspot.com/o/Screen%20Shot%202020-10-25%20at%202.46.20%20PM.png?alt=media&token=0bce169f-69cd-48f9-9119-ecf29ed15e50' }} />
             <H3>
               {user?.firstName} {user?.lastName}
             </H3>
