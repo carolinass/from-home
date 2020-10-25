@@ -2,11 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { DrawerScreenProps } from '@react-navigation/drawer'
 import { Button, DatePicker, Form, Icon, Input, Item, Label, Picker, Text, Toast } from 'native-base'
 import firebase, { firestore } from 'firebase'
-import { addMinutes, setHours, setMinutes } from 'date-fns'
+import { addMinutes, format, setHours, setMinutes } from 'date-fns'
 import MultiSelect from 'react-native-multiple-select'
 import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
 import TimePicker from '../../components/TimePicker'
+import { sendPushNotification } from '../../utils/notification.utils'
 
 const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) => {
   const { user } = useUser()
@@ -15,7 +16,7 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
   const [availableRooms, setAvailableRooms] = useState<any[]>([])
 
   const [selectedPeople, setSelectedPeople] = useState<string[]>([user?.uid ?? ''])
-  const [availablePeople, setAvailablePeople] = useState<{ id: string; name: string }[]>([])
+  const [availablePeople, setAvailablePeople] = useState<{ id: string; name: string; expoPushToken?: string }[]>([])
 
   const [title, setTitle] = useState('')
   const [date, setDate] = useState(() => new Date())
@@ -43,7 +44,8 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
       .then((people) => {
         const mappedPeople = people.docs.map((person) => ({
           id: person.id,
-          name: `${person.data().firstName} ${person.data().lastName}`
+          name: `${person.data().firstName} ${person.data().lastName}`,
+          ...person.data()
         }))
 
         setAvailablePeople(mappedPeople)
@@ -78,7 +80,7 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
     const startDate = setMinutes(setHours(date, startTime!.getHours()), startTime!.getMinutes())
     const endDate = setMinutes(setHours(date, endTime!.getHours()), endTime!.getMinutes())
 
-    await firebase.firestore().collection(`events`).add({
+    const addedEvent = await firebase.firestore().collection(`events`).add({
       homeId: user?.homeId,
       title,
       room: selectedRoom,
@@ -87,8 +89,18 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
       people: selectedPeople
     })
 
+    sendPushNotification(
+      selectedPeople
+        .map((person) => availablePeople.find((p) => p.id === person)?.expoPushToken)
+        .filter(Boolean) as string[],
+
+      `${title} has been Scheduled`,
+      `${user?.firstName} just scheduled a new event for ${format(startDate, 'P p')}.`,
+      { navigate: { route: 'Event', params: { eventId: addedEvent.id } } }
+    )
+
     return navigation.navigate('Upcoming Events')
-  }, [title, selectedPeople, date, startTime, endTime, selectedRoom, navigation, user])
+  }, [title, selectedPeople, date, startTime, endTime, selectedRoom, navigation, user, availablePeople])
 
   return (
     <BaseLayout title="Schedule Event">
