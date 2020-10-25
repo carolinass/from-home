@@ -91,6 +91,7 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
 
     sendPushNotification(
       selectedPeople
+        .filter((person) => person !== user?.uid)
         .map((person) => availablePeople.find((p) => p.id === person)?.expoPushToken)
         .filter(Boolean) as string[],
 
