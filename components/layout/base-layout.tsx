@@ -8,11 +8,13 @@ type HeaderProps = {
   useView?: boolean
   showBackButton?: boolean
   rightContent?: React.ReactNode
+  full?: boolean
 }
 
 export const BaseLayout: React.FC<HeaderProps> = ({
   children,
   title,
+  full = false,
   useView = false,
   showBackButton = false,
   rightContent
@@ -24,7 +26,7 @@ export const BaseLayout: React.FC<HeaderProps> = ({
       useView
         ? ({ children: c }) => <View style={{ flex: 1 }}>{c}</View>
         : ({ children: c }) => (
-            <Content padder contentContainerStyle={{ flexGrow: 1 }}>
+            <Content padder={!full} contentContainerStyle={{ flexGrow: 1 }}>
               {c}
             </Content>
           ),
