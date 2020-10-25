@@ -5,6 +5,7 @@ import { Button, Card, CardItem, Col, Grid, H1, Icon, Spinner, Text, View } from
 import { format, formatDistance } from 'date-fns'
 import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
+import Chat from '../../components/Chat'
 
 const EventScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
   const { user } = useUser()
@@ -80,7 +81,7 @@ const EventScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
         </Button>
       }
     >
-      <H1 style={{ textAlign: 'center', padding: 20 }}>{event?.title}</H1>
+      <H1 style={{ textAlign: 'center', padding: 10 }}>{event?.title}</H1>
       <Grid style={{ flexGrow: 0 }}>
         <Col>
           <Card>
@@ -128,6 +129,11 @@ const EventScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
         {people.map((person) => `${person.firstName} ${person.lastName}`).join(', ')}
         {people.length === 0 && 'Nobody'}
       </Text>
+
+      <Text note style={{ marginTop: 10 }}>
+        Comments
+      </Text>
+      <Chat channel={eventId} style={{ marginTop: 20 }} />
 
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         {event?.people.includes(user?.uid) ? (
