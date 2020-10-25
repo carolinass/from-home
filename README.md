@@ -9,6 +9,31 @@
   </a>
 </p>
 
+## About
+A solution for working from home problems.
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░▄▄███▄▄▄░▄▄██▄░░░░░░░
+░░░░░░░░░██▀███████████████▀▀▄█░░░░░░
+░░░░░░░░█▀▄▀▀▄██████████████▄░░█░░░░░
+░░░░░░░█▀▀░▄██████████████▄█▀░░▀▄░░░░
+░░░░░▄▀░░░▀▀▄████████████████▄░░░█░░░
+░░░░░▀░░░░▄███▀░░███▄████░████░░░░▀▄░
+░░░▄▀░░░░▄████░░▀▀░▀░░░░░░██░▀▄░░░░▀▄
+░▄▀░░░░░▄▀▀██▀░░░░░▄░░▀▄░░██░░░▀▄░░░░
+█░░░░░█▀░░░██▄░░░░░▀▀█▀░░░█░░░░░░█░░░
+█░░░▄▀░░░░░░██░░░░░▀██▀░░█▀▄░░░░░░▀▀▀
+▀▀▀▀░▄▄▄▄▄▄▀▀░█░░░░░░░░░▄█░░█▀▀▀▀▀█░░
+░░░░█░░░▀▀░░░░░░▀▄░░░▄▄██░░░█░░░░░▀▄░
+░░░░█░░░░░░░░░░░░█▄▀▀▀▀▀█░░░█░░░░░░█░
+░░░░▀░░░░░░░░░░░░░▀░░░░▀░░░░▀░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+## Build With
+* React Native
+* Expo
+* Native Base
+* Firebase
+
 ## Install
 
 ```sh
@@ -35,6 +60,3 @@ yarn start
 
 Copyright © 2020 [Carol Cabral](https://github.com/carolinass) [Jan Houben](https://github.com/minextu).<br />
 This project is [GNU General Public License v3.0](https://github.com/carolinass/team-d/blob/main/LICENSE) licensed.
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
