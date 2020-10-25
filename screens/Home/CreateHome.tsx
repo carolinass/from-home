@@ -22,7 +22,7 @@ const CreateHome = ({ navigation }) => {
           homeId: docRef.id
         }, { merge: true })
 
-        navigation.navigate('Home', { screen: 'MyHome' });
+        navigation.navigate('Home', { screen: 'My Home' });
       })
       .catch(function(error) {
         console.error('Error writing document: ', error);

@@ -16,9 +16,8 @@ const CreateRoom = ({ navigation }) => {
     db.collection('rooms').add({
       name,
       homeId
-    })
-      .then(() => {
-        navigation.navigate('Home', { screen: 'MyHome' });
+    }).then(() => {
+        navigation.navigate('Home', { screen: 'My Home' });
       })
       .catch(function(error) {
         console.error('Error writing document: ', error);

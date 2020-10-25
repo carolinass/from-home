@@ -28,7 +28,7 @@ const JoinHome = ({ navigation }) => {
           users: [ ...currentUsers, user?.uid]
         }, { merge: true })
 
-        navigation.navigate('Home', { screen: 'MyHome' });
+        navigation.navigate('Home', { screen: 'My Home' });
       })
       .catch(error => {
         console.log('error', error)
