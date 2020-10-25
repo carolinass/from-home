@@ -3,14 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import * as React from 'react'
 
-import { Icon, Thumbnail } from 'native-base'
+import { Icon } from 'native-base'
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
 import CreateHome from '../screens/Home/CreateHome'
 import Home from '../screens/Home/Home'
-import TabTwoScreen from '../screens/TabTwoScreen'
 import { BottomTabParamList, TabTwoParamList } from '../types'
-import TabMoreScreen from '../screens/TabMoreScreen'
+import TabMoreScreen from '../screens/More/TabMoreScreen'
 import TabBar from './TabBar'
 import CreateRoom from '../screens/Home/CreateRoom'
 import ScheduleEventScreen from '../screens/Home/ScheduleEventScreen'
@@ -18,6 +17,7 @@ import SideBar from './Sidebar'
 import InviteFriend from '../screens/Home/InviteFriend'
 import JoinHome from '../screens/Home/JoinHome'
 import ProfileScreen from '../screens/Profile/ProfileScreen'
+import ConnectGoogleScreen from '../screens/More/ConnectGoogleScreen'
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
@@ -88,7 +88,8 @@ const TabMoreStack = createStackNavigator()
 function TabMoreNavigator() {
   return (
     <TabMoreStack.Navigator screenOptions={{ headerShown: false }}>
-      <TabMoreStack.Screen name="TabMoreScreen" component={TabMoreScreen} options={{ headerTitle: 'Tab More Title' }} />
+      <TabMoreStack.Screen name="TabMore" component={TabMoreScreen} />
+      <TabMoreStack.Screen name="ConnectGoogle" component={ConnectGoogleScreen} />
     </TabMoreStack.Navigator>
   )
 }

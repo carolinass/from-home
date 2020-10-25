@@ -21,6 +21,7 @@ const TimePicker: React.FC<TimePickerProps> = ({ value = new Date(), onChange, .
       {isVisible && (
         <DateTimePicker
           {...props}
+          textColor="black"
           style={{ minWidth: 200 }}
           mode="time"
           value={value}
