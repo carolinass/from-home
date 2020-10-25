@@ -141,7 +141,7 @@ const Home = ({ navigation }) => {
             </ListItem>
           )}
           <Button transparent onPress={goToInviteFriend}>
-            <Text>Invite Roomate</Text>
+            <Text>Invite Friend</Text>
           </Button>
         </List>
         <List>

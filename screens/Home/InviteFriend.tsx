@@ -32,7 +32,7 @@ const InviteFriend = ({ navigation }) => {
 
   return (
     <BaseLayout title="Invite Roomate">
-      <H3 style={styles.text}>Share your home ID with your friends to invite them to your home!</H3>
+      <H3 style={styles.text}>Share your home ID with your friends to invite them to join your home!</H3>
       <Button block onPress={share}>
         <Ionicons size={20} name="ios-share-alt" color="white"/>
         <Text>Share</Text>
