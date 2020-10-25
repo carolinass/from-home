@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Text, H3, List, ListItem } from 'native-base';
+import { Button, Text, H3, List, ListItem, Left, Thumbnail, Body, Right } from 'native-base';
 import * as firebase from 'firebase'
 import { useUser } from '../../hooks/useUser';
 import { BaseLayout } from '../../components/layout';
@@ -98,6 +98,17 @@ const Home = ({ navigation }) => {
     return null
   }
 
+  const isUserAvailable = (user: any) => {
+    for (const event of events) {
+      if (event.people.includes(user.id)) {
+        if (isBefore(event.startDate.toDate(), Date.now()) && isAfter(event.endDate.toDate(), Date.now())) {
+          return false
+        }
+      }
+    }
+    return true
+  }
+
   useEffect(() => {
     if (!user || !user.homeId) return
     const homeId = user.homeId
@@ -148,8 +159,17 @@ const Home = ({ navigation }) => {
             <H3 style={styles.listHeader}>Roomies</H3>
           </ListItem>
           {roomates.map((roomate, i) =>
-            <ListItem key={i}>
-              <Text>{`${roomate?.firstName} ${roomate?.lastName}`}</Text>
+            <ListItem avatar key={i}>
+              <Left>
+                <Thumbnail small source={{ uri: 'https://medgoldresources.com/wp-content/uploads/2018/02/avatar-placeholder.gif' }} />
+              </Left>
+              <Body>
+                <Text>{`${roomate?.firstName} ${roomate?.lastName}`}</Text>
+                { isUserAvailable(roomate)
+                  ? <Text note style={{color: 'green', fontWeight: '400'}}>Available</Text>
+                  : <Text note style={{color: '#F04747', fontWeight: '400'}}>Busy</Text>
+                }
+              </Body>
             </ListItem>
           )}
           <Button transparent onPress={goToInviteFriend}>
