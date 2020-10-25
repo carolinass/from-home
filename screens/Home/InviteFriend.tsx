@@ -13,7 +13,7 @@ const InviteFriend = ({ navigation }) => {
   const share = async () => {
     try {
       const result = await Share.share({
-        message: `Hey! Join our home by signing up to TeamDApp using my home id: ${user?.homeId}`,
+        message: `Hey! Join our home by signing up to FromHome using my home id: ${user?.homeId}`,
       });
 
       if (result.action === Share.sharedAction) {
