@@ -131,9 +131,21 @@ const Home = ({ navigation }) => {
         <Button block onPress={goToNewEvent} style={styles.extraMargin}>
           <Text>New Event</Text>
         </Button>
+        <List>
+          <ListItem itemHeader first>
+            <H3 style={styles.listHeader}>Rooms</H3>
+          </ListItem>
+          {rooms.map((room, i) =>
+            roomItem(room, i)
+          )}
+        </List>
+        <Button transparent onPress={goToCreateRoom}>
+          <Text>Add Room</Text>
+        </Button>
+
         <List style={styles.extraMargin}>
           <ListItem itemHeader first>
-            <H3>ROOMIES</H3>
+            <H3 style={styles.listHeader}>Roomies</H3>
           </ListItem>
           {roomates.map((roomate, i) =>
             <ListItem key={i}>
@@ -144,17 +156,6 @@ const Home = ({ navigation }) => {
             <Text>Invite Friend</Text>
           </Button>
         </List>
-        <List>
-          <ListItem itemHeader first>
-            <H3>ROOMS</H3>
-          </ListItem>
-          {rooms.map((room, i) =>
-            roomItem(room, i)
-          )}
-        </List>
-        <Button transparent onPress={goToCreateRoom}>
-          <Text>Add Room</Text>
-        </Button>
       </BaseLayout>
     :
       <BaseLayout title="Home">
@@ -172,6 +173,9 @@ const styles = StyleSheet.create({
   extraMargin: {
     marginTop: 15,
     marginBottom: 15
+  },
+  listHeader: {
+    fontWeight: '500'
   },
   roomStatus: {
     marginRight: 10
