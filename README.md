@@ -1,6 +1,6 @@
 
 <div style="text-align: center">
-  ![logo](https://firebasestorage.googleapis.com/v0/b/nonow-e7237.appspot.com/o/logo_small.png?alt=media&token=559427f9-e7fd-4436-9866-a8cdfad01728)
+  <img src="https://firebasestorage.googleapis.com/v0/b/nonow-e7237.appspot.com/o/logo_small.png?alt=media&token=559427f9-e7fd-4436-9866-a8cdfad01728" />
 </div>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
