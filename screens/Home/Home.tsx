@@ -165,7 +165,7 @@ const Home = ({ navigation }) => {
             <Left>
               <Thumbnail
                 small
-                source={{ uri: 'https://medgoldresources.com/wp-content/uploads/2018/02/avatar-placeholder.gif' }}
+                source={{ uri: roomate.image || 'https://medgoldresources.com/wp-content/uploads/2018/02/avatar-placeholder.gif' }}
               />
             </Left>
             <Body>

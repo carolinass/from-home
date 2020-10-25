@@ -9,6 +9,7 @@ type User = {
   lastName: string
   homeId: string | null
   expoPushToken?: string
+  image?: string
 }
 
 export const UserContext = createContext<{ user: User | null; setUser: (user: any) => void; loadingUser: boolean }>({

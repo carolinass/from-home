@@ -3,7 +3,6 @@ import { DrawerScreenProps } from '@react-navigation/drawer'
 import { firestore } from 'firebase'
 import { Button, H1, Icon } from 'native-base'
 import { BaseLayout } from '../../components/layout'
-import { useUser } from '../../hooks/useUser'
 import UpcomingEventsScreen from './UpcomingEventsScreen'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 

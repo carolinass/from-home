@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import * as React from 'react'
 
-import { Icon } from 'native-base'
+import { Icon, Thumbnail } from 'native-base'
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
 import CreateHome from '../screens/Home/CreateHome'
@@ -17,6 +17,7 @@ import ScheduleEventScreen from '../screens/Home/ScheduleEventScreen'
 import SideBar from './Sidebar'
 import InviteFriend from '../screens/Home/InviteFriend'
 import JoinHome from '../screens/Home/JoinHome'
+import ProfileScreen from '../screens/Profile/ProfileScreen'
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
@@ -77,7 +78,7 @@ const TabTwoStack = createStackNavigator<TabTwoParamList>()
 function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator screenOptions={{ headerShown: false }}>
-      <TabTwoStack.Screen name="Profile" component={TabTwoScreen} />
+      <TabTwoStack.Screen name="Profile" component={ProfileScreen} />
     </TabTwoStack.Navigator>
   )
 }
