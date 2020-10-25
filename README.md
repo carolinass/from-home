@@ -2,7 +2,7 @@
 <p align="center">
   <img src="https://firebasestorage.googleapis.com/v0/b/nonow-e7237.appspot.com/o/logo_small.png?alt=media&token=559427f9-e7fd-4436-9866-a8cdfad01728" />
 </p>
-<p>
+<p align="center">
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/carolinass/team-d/blob/main/LICENSE" target="_blank">
     <img alt="License: GNU General Public License v3.0" src="https://img.shields.io/badge/License-GNU General Public License v3.0-yellow.svg" />
