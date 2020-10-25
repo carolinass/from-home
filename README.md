@@ -1,4 +1,4 @@
-![logo](https://firebasestorage.googleapis.com/v0/b/nonow-e7237.appspot.com/o/logo%20(4).png?alt=media&token=e9c927f9-cddb-4d31-8253-5593c513febf)
+![logo](https://firebasestorage.googleapis.com/v0/b/nonow-e7237.appspot.com/o/logo_small.png?alt=media&token=559427f9-e7fd-4436-9866-a8cdfad01728)
 
 <h1 align="center">Welcome to FromHome 👋</h1>
 <p>
