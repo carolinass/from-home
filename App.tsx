@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import * as firebase from 'firebase'
 import { Root, Spinner } from 'native-base'
-import { LogBox } from 'react-native'
+import { LogBox, Platform } from 'react-native'
 import UserProvider from './contexts/userContext'
 
 import useCachedResources from './hooks/useCachedResources'
@@ -12,6 +12,7 @@ import Navigation from './navigation'
 
 import 'firebase/firestore'
 import firebaseConfig from './firebaseConfig'
+import { useNotificationHandler } from './utils/notification.utils'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
@@ -24,10 +25,19 @@ export default function App() {
   const colorScheme = useColorScheme()
   const [userReady, setUserReady] = useState(false)
 
+  const [navigationReady, setNavigationReady] = useState(false)
+  const { expoPushToken } = useNotificationHandler(navigationReady)
+
   return (
     <SafeAreaProvider>
-      <UserProvider onDoneLoading={() => setUserReady(true)}>
-        <Root>{!isLoadingComplete || !userReady ? <Spinner /> : <Navigation colorScheme={colorScheme} />}</Root>
+      <UserProvider onDoneLoading={() => setUserReady(true)} expoPushToken={expoPushToken}>
+        <Root>
+          {!isLoadingComplete || !userReady ? (
+            <Spinner />
+          ) : (
+            <Navigation colorScheme={colorScheme} onReady={() => setNavigationReady(true)} />
+          )}
+        </Root>
         <StatusBar />
       </UserProvider>
     </SafeAreaProvider>

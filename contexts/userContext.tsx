@@ -8,6 +8,7 @@ type User = {
   firstName: string
   lastName: string
   homeId: string | null
+  expoPushToken?: string
 }
 
 export const UserContext = createContext<{ user: User | null; setUser: (user: any) => void; loadingUser: boolean }>({
@@ -16,7 +17,11 @@ export const UserContext = createContext<{ user: User | null; setUser: (user: an
   loadingUser: true
 })
 
-const UserContextComp: React.FC<{ onDoneLoading: () => void }> = ({ children, onDoneLoading }) => {
+const UserContextComp: React.FC<{ onDoneLoading: () => void; expoPushToken?: string }> = ({
+  children,
+  onDoneLoading,
+  expoPushToken
+}) => {
   const [user, setUser] = useState<User | null>(null)
   const [loadingUser, setLoadingUser] = useState(true) // Helpful, to update the UI accordingly.
 
@@ -51,6 +56,12 @@ const UserContextComp: React.FC<{ onDoneLoading: () => void }> = ({ children, on
     // Unsubscribe auth listener on unmount
     return () => unsubscriber()
   }, [])
+
+  useEffect(() => {
+    if (user && expoPushToken && user.expoPushToken !== expoPushToken) {
+      firebase.firestore().doc(`users/${user.uid}`).update({ expoPushToken })
+    }
+  }, [expoPushToken, user])
 
   return <UserContext.Provider value={{ user, setUser, loadingUser }}>{children}</UserContext.Provider>
 }
