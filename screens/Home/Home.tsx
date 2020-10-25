@@ -6,6 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { isBefore, isAfter } from 'date-fns'
 import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
+import UpcomingEventsScreen from './UpcomingEventsScreen'
 
 interface Home {
   id: string
@@ -142,6 +143,9 @@ const Home = ({ navigation }) => {
       <Button block onPress={goToNewEvent} style={styles.extraMargin}>
         <Text>New Event</Text>
       </Button>
+
+      <UpcomingEventsScreen />
+
       <List>
         <ListItem itemHeader first>
           <H3 style={styles.listHeader}>Rooms</H3>

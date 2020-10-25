@@ -101,7 +101,7 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
       { navigate: { route: 'Event', params: { eventId: addedEvent.id } } }
     )
 
-    return navigation.navigate('Upcoming Events')
+    return navigation.navigate('My Home')
   }, [title, selectedPeople, date, startTime, endTime, selectedRoom, navigation, user, availablePeople])
 
   return (

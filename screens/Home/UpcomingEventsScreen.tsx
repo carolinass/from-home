@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { DrawerScreenProps } from '@react-navigation/drawer'
-import { Body, Card, CardItem, Left, List, Spinner, Text } from 'native-base'
+import { Body, Card, CardItem, Left, List, ListItem, Spinner, Text, H3 } from 'native-base'
 import { firestore } from 'firebase'
 import { format } from 'date-fns'
 import { RefreshControl } from 'react-native'
@@ -9,7 +9,7 @@ import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
 import { MaterialIcons } from '@expo/vector-icons'; 
 
-const UpcomingEventsScreen: React.FC<DrawerScreenProps<any>> = () => {
+const UpcomingEventsScreen = () => {
   const [events, setEvents] = useState<any[] | null>(null)
   const [refreshing, setRefreshing] = useState(true)
   const { user } = useUser()
@@ -53,20 +53,27 @@ const UpcomingEventsScreen: React.FC<DrawerScreenProps<any>> = () => {
   }, [user, refreshing])
 
   return (
-    <BaseLayout title="Upcoming Events" useView>
-      {events === null ? (
-        <Spinner />
-      ) : (
-        <>
-          <List
-            dataArray={events}
-            renderItem={({ item, index }) => <UpcomingEvent {...item} />}
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} />}
-          />
-          {events?.length === 0 && <Text>No upcoming events...</Text>}
-        </>
-      )}
-    </BaseLayout>
+    events === null ? (
+      <Spinner />
+    ) : (
+      <>
+        <List
+          style={{ marginBottom: 15 }}
+          dataArray={[ 'header', ...events]}
+          renderItem={({ item, index }) => {
+            if (index === 0)
+              return (
+                <ListItem itemHeader first>
+                  <H3 style={{ fontWeight: '500' }}>Upcoming Events</H3>
+                </ListItem>
+              )
+            return <UpcomingEvent {...item} />}
+          }
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} />}
+        />
+        {events?.length === 0 && <Text>No upcoming events...</Text>}
+      </>
+    )
   )
 }
 
@@ -91,13 +98,13 @@ const UpcomingEvent: React.FC<any> = ({ id, title, room, startDate, endDate, peo
           </Body>
         </Left>
       </CardItem>
-      <CardItem button onPress={onPress}>
+      {/* <CardItem button onPress={onPress}>
         <Text>
           Room: {room.name}
           {`\n`}
           People: {people.map((person) => `${person.firstName} ${person.lastName}`).join(',')}
         </Text>
-      </CardItem>
+      </CardItem> */}
     </Card>
   )
 }

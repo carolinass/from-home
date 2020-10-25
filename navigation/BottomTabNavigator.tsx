@@ -65,7 +65,6 @@ function HomeNavigator() {
       <HomeStack.Screen name="My Home" component={Home} options={{ unmountOnBlur: true }} />
       <HomeStack.Screen name="Create Room" component={CreateRoom} />
       <HomeStack.Screen name="Schedule Event" component={ScheduleEventScreen} options={{ unmountOnBlur: true }} />
-      <HomeStack.Screen name="Upcoming Events" component={UpcomingEventsScreen} options={{ unmountOnBlur: true }} />
       <HomeStack.Screen name="Invite Friend" component={InviteFriend} />
 
       <HomeStack.Screen name="Create Home" component={CreateHome} options={{ hidden: true }} />
