@@ -1,13 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Body, Card, CardItem, Left, List, ListItem, Spinner, Text, H3 } from 'native-base'
+import React, { FC, useCallback, useEffect, useState } from 'react'
+import { Body, Card, CardItem, Left, List, ListItem, Spinner, Text, H3, View } from 'native-base'
 import { firestore } from 'firebase'
 import { format, isBefore, isAfter } from 'date-fns'
 import { RefreshControl } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useUser } from '../../hooks/useUser'
-import { MaterialIcons } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons';
 
-const UpcomingEventsScreen = () => {
+interface IProps {
+  roomId?: string
+}
+
+const UpcomingEventsScreen: FC<IProps> = ({ roomId }) => {
   const [events, setEvents] = useState<any[] | null>(null)
   const [refreshing, setRefreshing] = useState(true)
   const { user } = useUser()
@@ -26,21 +30,25 @@ const UpcomingEventsScreen = () => {
         .get()
         .then((data) => data.docs.map((u) => ({ id: u.id, ...u.data() })))
 
-      const eventList = await firestore()
+      const eventDocs = await firestore()
         .collection('/events')
         .where('homeId', '==', user?.homeId)
         .where('endDate', '>=', new Date())
         .orderBy('endDate', 'asc')
         .get()
 
-      setEvents(
-        eventList.docs.map((event) => ({
-          id: event.id,
-          ...event.data(),
-          room: allRooms.find((room) => room.id === event.data().room),
-          people: event.data().people.map((person: any) => allPeople.find((p) => p.id === person))
-        }))
-      )
+      let eventList = eventDocs.docs.map((event) => ({
+        id: event.id,
+        ...event.data(),
+        room: allRooms.find((room) => room.id === event.data().room),
+        people: event.data().people.map((person: any) => allPeople.find((p) => p.id === person))
+      }))
+
+      if (roomId) {
+        eventList = eventList.filter(e => e.room?.id === roomId)
+      }
+
+      setEvents(eventList)
 
       setRefreshing(false)
     }
@@ -54,7 +62,7 @@ const UpcomingEventsScreen = () => {
     events === null ? (
       <Spinner />
     ) : (
-      <>
+      <View>
         <List
           style={{ marginBottom: 15 }}
           dataArray={[ 'header', ...events]}
@@ -69,8 +77,8 @@ const UpcomingEventsScreen = () => {
           }
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} />}
         />
-        {events?.length === 0 && <Text  style={{ marginTop: 15, marginBottom: 15 }}>No upcoming events...</Text>}
-      </>
+        <Text  style={{ marginLeft: 15, marginBottom: 15 }}>No upcoming events...</Text>
+      </View>
     )
   )
 }

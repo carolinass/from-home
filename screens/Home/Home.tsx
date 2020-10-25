@@ -127,7 +127,7 @@ const Home = ({ navigation }) => {
     const roomEvent = isRoomAvailable(room)
     const roomText = roomEvent ? `${room.name} - ${roomEvent.title}` : room.name
     return (
-      <ListItem key={i}>
+      <ListItem button key={i} onPress={() => navigation.navigate('Room', { roomId: room.id })}>
         {roomEvent ? (
           <MaterialIcons name="event-busy" size={24} color="#F04747" style={styles.roomStatus} />
         ) : (
