@@ -33,12 +33,12 @@ export const syncGoogleCalendar = functions.pubsub.schedule('every 5 minutes').o
                   .doc(`events/${event.id}`)
                   .set({
                     isGoogleEvent: true,
-                    endDate: new Date(event.end?.dateTime ?? ''),
+                    endDate: new Date(event.end?.dateTime || event.end?.date || 0),
                     homeId: userFetch.data()!.homeId,
                     people: [userFetch.id],
                     room: null,
                     title: event.summary,
-                    startDate: new Date(event.start?.dateTime ?? '')
+                    startDate: new Date(event.start?.dateTime || event.start?.date || 0)
                   })
               }
             })
