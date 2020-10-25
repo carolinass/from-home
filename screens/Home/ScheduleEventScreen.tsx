@@ -7,6 +7,7 @@ import MultiSelect from 'react-native-multiple-select'
 import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
 import TimePicker from '../../components/TimePicker'
+import { StyleSheet } from 'react-native';
 
 const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) => {
   const { user } = useUser()
@@ -93,12 +94,12 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
   return (
     <BaseLayout title="Schedule Event">
       <Form>
-        <Item floatingLabel>
+        <Item floatingLabel style={styles.formInput}>
           <Label>Event Title</Label>
           <Input onChangeText={setTitle} value={title} />
         </Item>
 
-        <Item fixedLabel>
+        <Item fixedLabel style={styles.formInput}>
           <Label>Select Room</Label>
           <Picker
             mode="dropdown"
@@ -114,7 +115,7 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
           </Picker>
         </Item>
 
-        <Item fixedLabel>
+        <Item fixedLabel style={styles.formInput}>
           <Label>Date</Label>
           <DatePicker
             defaultDate={date}
@@ -125,12 +126,12 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
           />
         </Item>
 
-        <Item fixedLabel>
+        <Item fixedLabel style={styles.formInput}>
           <Label>Start Time</Label>
           <TimePicker value={startTime} onChange={setStartTime} />
         </Item>
 
-        <Item fixedLabel>
+        <Item fixedLabel style={styles.formInput}>
           <Label>End Time</Label>
           <TimePicker value={endTime} onChange={setEndTime} />
         </Item>
@@ -140,7 +141,7 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
           onSelectedItemsChange={setSelectedPeople}
           selectedItems={selectedPeople}
           selectText="Select People"
-          styleMainWrapper={{ margin: 10 }}
+          styleMainWrapper={{ margin: 15 }}
           uniqueKey="id"
           submitButtonText="Confirm People"
         />
@@ -152,5 +153,12 @@ const ScheduleEventScreen: React.FC<DrawerScreenProps<any>> = ({ navigation }) =
     </BaseLayout>
   )
 }
+
+const styles = StyleSheet.create({
+  formInput: {
+    marginRight: 15,
+    marginBottom: 15,
+  }
+});
 
 export default ScheduleEventScreen

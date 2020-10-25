@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { DrawerScreenProps } from '@react-navigation/drawer'
-import { Body, Card, CardItem, Icon, Left, List, Spinner, Text } from 'native-base'
+import { Body, Card, CardItem, Left, List, Spinner, Text } from 'native-base'
 import { firestore } from 'firebase'
 import { format } from 'date-fns'
 import { RefreshControl } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { BaseLayout } from '../../components/layout'
 import { useUser } from '../../hooks/useUser'
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 const UpcomingEventsScreen: React.FC<DrawerScreenProps<any>> = () => {
   const [events, setEvents] = useState<any[] | null>(null)
@@ -80,7 +81,7 @@ const UpcomingEvent: React.FC<any> = ({ id, title, room, startDate, endDate, peo
     <Card style={{ elevation: 3 }}>
       <CardItem button onPress={onPress}>
         <Left>
-          <Icon name="ios-happy" />
+          <MaterialIcons name="event" size={24} />
           <Body>
             <Text>{title}</Text>
             <Text note>
