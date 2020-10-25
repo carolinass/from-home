@@ -21,10 +21,12 @@ const ProfileScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
     const db = firestore()
     db.collection('events')
       .where('people', 'array-contains', user?.uid)
-      .get()
-      .then((doc) => {
-        // @ts-ignore
-        setEvents({ id: doc.id, ...doc.data()})
+      .onSnapshot((querySnapshot) => {
+        const events: React.SetStateAction<any[]> = []
+        querySnapshot.forEach((doc) => {
+          events.push({ id: doc.id, ...doc.data() })
+        })
+        setEvents(events)
       })
   }
 
@@ -49,6 +51,7 @@ const ProfileScreen: React.FC<DrawerScreenProps<any>> = ({ route }) => {
       .then((doc) => {
         // @ts-ignore
         setHome({ id: doc.id, ...doc.data()})
+        getUserEvents()
       })
   }, [user])
 
