@@ -1,8 +1,6 @@
 
-<p align="center">
-  From Home
-</p>
-<p align="center">
+# From Home
+<p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/carolinass/team-d/blob/main/LICENSE" target="_blank">
     <img alt="License: GNU General Public License v3.0" src="https://img.shields.io/badge/License-GNU General Public License v3.0-yellow.svg" />
